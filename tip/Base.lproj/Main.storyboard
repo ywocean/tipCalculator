@@ -125,6 +125,7 @@
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                         <connections>
                                             <action selector="onChange:" destination="BYZ-38-t0r" eventType="editingChanged" id="7L3-xm-KnY"/>
+                                            <action selector="onSplitByEditingDidBegin:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="san-bx-f6i"/>
                                         </connections>
                                     </textField>
                                 </subviews>

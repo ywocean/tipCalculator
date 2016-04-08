@@ -48,6 +48,12 @@ class ViewController: UIViewController {
         billAmountTextField.selectedTextRange = billAmountTextField.textRangeFromPosition(endPosition, toPosition: endPosition)
     }
     
+    @IBAction func onSplitByEditingDidBegin(sender: AnyObject) {
+        let endPosition = splitByTextField.endOfDocument
+        splitByTextField.selectedTextRange = splitByTextField.textRangeFromPosition(endPosition, toPosition: endPosition)
+
+    }
+    
     @IBAction func onChange(sender: AnyObject) {
         calculateValues()
     }
@@ -58,6 +64,7 @@ class ViewController: UIViewController {
         let tipPercentages = [0.18, 0.2, 0.25]
         
         validateBillAmountValueString()
+        validateSplitByValueString()
         
         if let billAmountValueString = billAmountTextField.text {
             if let billAmount = Double(billAmountValueString){
@@ -109,6 +116,19 @@ class ViewController: UIViewController {
             }
             
             billAmountTextField.text = billAmountValueString
+        }
+    }
+    
+    func validateSplitByValueString () {
+        if var splitByValueString = splitByTextField.text {
+            if splitByValueString.characters.count > 0 {
+                let firstChar = splitByValueString.substringToIndex(splitByValueString.startIndex.successor())
+                if firstChar == "0" {
+                    splitByValueString = removeLastCharacter(splitByValueString)
+                }
+            }
+            
+            splitByTextField.text = splitByValueString
         }
     }
     
