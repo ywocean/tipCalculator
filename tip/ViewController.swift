@@ -57,6 +57,8 @@ class ViewController: UIViewController {
     func calculateValues() {
         let tipPercentages = [0.18, 0.2, 0.25]
         
+        validateBillAmountValueString()
+        
         if let billAmountValueString = billAmountTextField.text {
             if let billAmount = Double(billAmountValueString){
                 let tipAmount = billAmount * tipPercentages[tipControl.selectedSegmentIndex]
@@ -80,6 +82,23 @@ class ViewController: UIViewController {
         tipLabel.text = "$0.00"
         totalAmountLabel.text = "$0.00"
         splitAmountLabel.text = "$0.00"
+    }
+    
+    func validateBillAmountValueString() {
+        if var billAmountValueString = billAmountTextField.text {
+            if billAmountValueString.characters.count > 1 {
+                let lastChar = billAmountValueString.substringFromIndex(billAmountValueString.endIndex.predecessor())
+                if lastChar == "." {
+                    let dotOccurrence = billAmountValueString.componentsSeparatedByString(".")
+                    if dotOccurrence.count > 2 {
+                        print("already has a dot")
+                        billAmountValueString = billAmountValueString.substringToIndex(billAmountValueString.endIndex.predecessor())
+                    }
+                }
+            }
+            
+            billAmountTextField.text = billAmountValueString
+        }
     }
     
     func dismissKeyboard() {
