@@ -22,8 +22,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZtA-ZU-Hpz">
                                 <rect key="frame" x="0.0" y="175" width="600" height="50"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="20.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hrF-Qw-dAd">
-                                        <rect key="frame" x="58" y="16" width="522" height="18"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hrF-Qw-dAd">
+                                        <rect key="frame" x="59" y="16" width="521" height="18"/>
                                         <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -51,14 +51,14 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QgN-qc-8mG">
                                 <rect key="frame" x="0.0" y="225" width="600" height="50"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="=" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZOS-1Q-n6H">
-                                        <rect key="frame" x="20" y="13" width="28" height="25"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="=" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZOS-1Q-n6H">
+                                        <rect key="frame" x="20" y="13" width="29" height="25"/>
                                         <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" misplaced="YES" text="$120.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6YJ-3s-byH">
-                                        <rect key="frame" x="58" y="10" width="522" height="30"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="$120.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6YJ-3s-byH">
+                                        <rect key="frame" x="59" y="10" width="521" height="30"/>
                                         <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="24"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -120,6 +120,9 @@
                                         <color key="textColor" red="0.48627450979999998" green="0.24313725489999999" blue="0.54117647059999996" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="24"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                        <connections>
+                                            <action selector="onSplitByEditingChange:" destination="BYZ-38-t0r" eventType="editingChanged" id="Krt-xm-0iy"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -181,8 +184,8 @@
                                         <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="48"/>
                                         <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
                                         <connections>
-                                            <action selector="onEditingChange:" destination="BYZ-38-t0r" eventType="editingChanged" id="8Ly-E8-N62"/>
-                                            <action selector="onEditingDidBegin:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="csB-Yk-kGa"/>
+                                            <action selector="onBillAmountEditingChange:" destination="BYZ-38-t0r" eventType="editingChanged" id="KPl-60-cTg"/>
+                                            <action selector="onBillAmountEditingDidBegin:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="3UZ-bN-Ada"/>
                                         </connections>
                                     </textField>
                                 </subviews>

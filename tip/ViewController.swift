@@ -39,7 +39,7 @@ class ViewController: UIViewController {
     
     // MARK: actions
     
-    @IBAction func onEditingDidBegin(sender: AnyObject) {
+    @IBAction func onBillAmountEditingDidBegin(sender: AnyObject) {
         if let billAmountValueString = billAmountTextField.text {
             if billAmountValueString == "$" {
                 billAmountTextField.text = "";
@@ -50,18 +50,28 @@ class ViewController: UIViewController {
         billAmountTextField.selectedTextRange = billAmountTextField.textRangeFromPosition(endPosition, toPosition: endPosition)
     }
     
-    @IBAction func onEditingChange(sender: AnyObject) {
+    @IBAction func onBillAmountEditingChange(sender: AnyObject) {
+        calculateValues()
+    }
+    
+    @IBAction func onSplitByEditingChange(sender: AnyObject) {
+        calculateValues()
+    }
+    
+    // MARK: util functions
+    
+    func calculateValues() {
         if let billAmountValueString = billAmountTextField.text {
             if let billAmount = Double(billAmountValueString){
                 let tipAmount = billAmount * 0.2
                 let totalAmount = tipAmount + billAmount;
-                tipLabel.text = "$" + String(tipAmount)
-                totalAmountLabel.text = "$" + String(totalAmount)
+                tipLabel.text = String(format: "$%.2f", tipAmount)
+                totalAmountLabel.text = String(format: "$%.2f", totalAmount)
                 
                 if let splitByValueString = splitByTextField.text {
                     if let splitBy = Double(splitByValueString) {
                         let splitAmount = totalAmount / splitBy
-                        splitAmountLabel.text = "$" + String(splitAmount)
+                        splitAmountLabel.text = String(format: "$%.2f", splitAmount)
                         return
                     }
                 }
@@ -75,8 +85,6 @@ class ViewController: UIViewController {
         totalAmountLabel.text = "$0.00"
         splitAmountLabel.text = "$0.00"
     }
-    
-    // MARK: util functions
     
     func dismissKeyboard() {
         view.endEditing(true)
@@ -92,6 +100,8 @@ class ViewController: UIViewController {
                 splitByTextField.text = "1";
             }
         }
+        
+        calculateValues()
     }
 
 }
