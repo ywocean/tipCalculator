@@ -92,6 +92,9 @@
                                                 <exclude reference="yb7-zU-NVA"/>
                                             </mask>
                                         </variation>
+                                        <connections>
+                                            <action selector="onChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="hTS-Gb-DzN"/>
+                                        </connections>
                                     </segmentedControl>
                                 </subviews>
                                 <color key="backgroundColor" red="0.80392156859999997" green="0.70588235290000001" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
@@ -121,7 +124,7 @@
                                         <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="24"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                         <connections>
-                                            <action selector="onSplitByEditingChange:" destination="BYZ-38-t0r" eventType="editingChanged" id="Krt-xm-0iy"/>
+                                            <action selector="onChange:" destination="BYZ-38-t0r" eventType="editingChanged" id="7L3-xm-KnY"/>
                                         </connections>
                                     </textField>
                                 </subviews>
@@ -184,8 +187,8 @@
                                         <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="48"/>
                                         <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
                                         <connections>
-                                            <action selector="onBillAmountEditingChange:" destination="BYZ-38-t0r" eventType="editingChanged" id="KPl-60-cTg"/>
                                             <action selector="onBillAmountEditingDidBegin:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="3UZ-bN-Ada"/>
+                                            <action selector="onChange:" destination="BYZ-38-t0r" eventType="editingChanged" id="voK-AE-Aqa"/>
                                         </connections>
                                     </textField>
                                 </subviews>
@@ -306,6 +309,7 @@
                         <outlet property="billAmountTextField" destination="OAW-2d-eXO" id="CKh-Ik-xfx"/>
                         <outlet property="splitAmountLabel" destination="7zk-fV-mQ5" id="9hC-3C-eoH"/>
                         <outlet property="splitByTextField" destination="Rfi-EJ-kiy" id="THl-SP-yjM"/>
+                        <outlet property="tipControl" destination="rsh-iF-Jbn" id="WoC-rR-904"/>
                         <outlet property="tipLabel" destination="hrF-Qw-dAd" id="mLJ-1H-UfB"/>
                         <outlet property="totalAmountLabel" destination="6YJ-3s-byH" id="XOE-iB-MQp"/>
                     </connections>

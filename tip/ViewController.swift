@@ -10,13 +10,12 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    // MARK: variables
-    
     @IBOutlet weak var billAmountTextField: UITextField!
     @IBOutlet weak var tipLabel: UILabel!
     @IBOutlet weak var totalAmountLabel: UILabel!
     @IBOutlet weak var splitByTextField: UITextField!
     @IBOutlet weak var splitAmountLabel: UILabel!
+    @IBOutlet weak var tipControl: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +26,7 @@ class ViewController: UIViewController {
         billAmountTextField.text = "$"
         splitByTextField.text = "1"
         splitAmountLabel.text = "$0.00"
+        tipControl.selectedSegmentIndex = 1
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
@@ -36,8 +36,6 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    // MARK: actions
     
     @IBAction func onBillAmountEditingDidBegin(sender: AnyObject) {
         if let billAmountValueString = billAmountTextField.text {
@@ -50,20 +48,18 @@ class ViewController: UIViewController {
         billAmountTextField.selectedTextRange = billAmountTextField.textRangeFromPosition(endPosition, toPosition: endPosition)
     }
     
-    @IBAction func onBillAmountEditingChange(sender: AnyObject) {
-        calculateValues()
-    }
-    
-    @IBAction func onSplitByEditingChange(sender: AnyObject) {
+    @IBAction func onChange(sender: AnyObject) {
         calculateValues()
     }
     
     // MARK: util functions
     
     func calculateValues() {
+        let tipPercentages = [0.18, 0.2, 0.25]
+        
         if let billAmountValueString = billAmountTextField.text {
             if let billAmount = Double(billAmountValueString){
-                let tipAmount = billAmount * 0.2
+                let tipAmount = billAmount * tipPercentages[tipControl.selectedSegmentIndex]
                 let totalAmount = tipAmount + billAmount;
                 tipLabel.text = String(format: "$%.2f", tipAmount)
                 totalAmountLabel.text = String(format: "$%.2f", totalAmount)
