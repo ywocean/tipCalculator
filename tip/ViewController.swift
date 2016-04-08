@@ -87,18 +87,33 @@ class ViewController: UIViewController {
     func validateBillAmountValueString() {
         if var billAmountValueString = billAmountTextField.text {
             if billAmountValueString.characters.count > 1 {
+            
                 let lastChar = billAmountValueString.substringFromIndex(billAmountValueString.endIndex.predecessor())
+                let firstChar = billAmountValueString.substringToIndex(billAmountValueString.startIndex.successor())
+                let dotOccurrence = billAmountValueString.componentsSeparatedByString(".")
                 if lastChar == "." {
-                    let dotOccurrence = billAmountValueString.componentsSeparatedByString(".")
                     if dotOccurrence.count > 2 {
-                        print("already has a dot")
-                        billAmountValueString = billAmountValueString.substringToIndex(billAmountValueString.endIndex.predecessor())
+                        billAmountValueString = removeLastCharacter(billAmountValueString)
+                    }
+                }
+                else if billAmountValueString.characters.count == 2 && firstChar == "0" {
+                    billAmountValueString = removeLastCharacter(billAmountValueString)
+                }
+                else if dotOccurrence.count == 2 {
+                    let dotRange = billAmountValueString.rangeOfString(".")
+                    let decimalValueString = billAmountValueString.substringFromIndex(dotRange!.endIndex)
+                    if decimalValueString.characters.count > 2 {
+                        billAmountValueString = removeLastCharacter(billAmountValueString)
                     }
                 }
             }
             
             billAmountTextField.text = billAmountValueString
         }
+    }
+    
+    func removeLastCharacter(str: String) -> String{
+        return str.substringToIndex(str.endIndex.predecessor())
     }
     
     func dismissKeyboard() {
