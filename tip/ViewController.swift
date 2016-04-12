@@ -24,10 +24,11 @@ class ViewController: UIViewController {
         tipLabel.text = "$0.00"
         totalAmountLabel.text = "$0.00"
         billAmountTextField.text = "$"
+        billAmountTextField.becomeFirstResponder()
         splitByTextField.text = "1"
         splitAmountLabel.text = "$0.00"
         
-        setDefaultTip()
+        setDefaultValues()
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
@@ -35,7 +36,7 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        setDefaultTip()
+        setDefaultValues()
         calculateValues()
     }
     
@@ -58,7 +59,6 @@ class ViewController: UIViewController {
     @IBAction func onSplitByEditingDidBegin(sender: AnyObject) {
         let endPosition = splitByTextField.endOfDocument
         splitByTextField.selectedTextRange = splitByTextField.textRangeFromPosition(endPosition, toPosition: endPosition)
-
     }
     
     @IBAction func onChange(sender: AnyObject) {
@@ -67,11 +67,23 @@ class ViewController: UIViewController {
     
     // MARK: util functions
     
-    func setDefaultTip() {
-        print("asdsadadass")
+    func setDefaultValues() {
         let defaults = NSUserDefaults.standardUserDefaults()
         let defaultTipPercentage = defaults.doubleForKey(Constants.defaultTipPercentageKey)
         tipControl.selectedSegmentIndex = Constants.tipPercentages.indexOf(defaultTipPercentage) ?? 1
+        if let billAmountUpdatedAt = defaults.objectForKey(Constants.billAmountUpdatedAtKey) as! NSDate? {
+            if NSDate().timeIntervalSinceDate(billAmountUpdatedAt) > 10*60 {
+                defaults.removeObjectForKey(Constants.billAmountUpdatedAtKey)
+                defaults.removeObjectForKey(Constants.billAmountKey)
+                defaults.removeObjectForKey(Constants.splitByValueKey)
+            }
+        }
+        if let billAmount = defaults.stringForKey(Constants.billAmountKey) {
+            billAmountTextField.text = billAmount
+        }
+        if let splitByValue = defaults.stringForKey(Constants.splitByValueKey) {
+            splitByTextField.text = splitByValue
+        }
     }
     
     func calculateValues() {
@@ -91,6 +103,12 @@ class ViewController: UIViewController {
                     if let splitBy = Double(splitByValueString) {
                         let splitAmount = totalAmount / splitBy
                         splitAmountLabel.text = String(format: "$%.2f", splitAmount)
+                        
+                        let defaults = NSUserDefaults.standardUserDefaults()
+                        defaults.setValue(splitByTextField.text, forKeyPath: Constants.splitByValueKey)
+                        defaults.setValue(billAmountTextField.text, forKeyPath: Constants.billAmountKey)
+                        defaults.setObject(NSDate(), forKey: Constants.billAmountUpdatedAtKey)
+                        defaults.synchronize()
                         return
                     }
                 }
@@ -103,6 +121,7 @@ class ViewController: UIViewController {
         tipLabel.text = "$0.00"
         totalAmountLabel.text = "$0.00"
         splitAmountLabel.text = "$0.00"
+        
     }
     
     func validateBillAmountValueString() {
