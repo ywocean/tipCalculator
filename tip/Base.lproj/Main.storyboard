@@ -85,7 +85,7 @@
                                         <segments>
                                             <segment title="18%"/>
                                             <segment title="20%"/>
-                                            <segment title="25%"/>
+                                            <segment title="22%"/>
                                         </segments>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -309,6 +309,9 @@
                     <navigationItem key="navigationItem" title="Math!" id="fm0-bY-uBH">
                         <barButtonItem key="rightBarButtonItem" image="setting" id="RHz-9x-l9B">
                             <color key="tintColor" red="0.48627450979999998" green="0.24313725489999999" blue="0.54117647059999996" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <segue destination="fy2-Ha-gHF" kind="show" id="WJF-W7-Sf2"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -323,6 +326,34 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1192" y="322"/>
+        </scene>
+        <!--Settings Table View Controller-->
+        <scene sceneID="tcJ-wN-Irj">
+            <objects>
+                <tableViewController id="fy2-Ha-gHF" customClass="SettingsTableViewController" customModule="tip" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="YtV-go-Tjn">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="itC-ZF-9Ox">
+                                <rect key="frame" x="0.0" y="114" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="itC-ZF-9Ox" id="XRE-h4-Jj4">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="fy2-Ha-gHF" id="583-Fq-U4W"/>
+                            <outlet property="delegate" destination="fy2-Ha-gHF" id="ude-M4-gWl"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pRu-1B-dR7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1864" y="322"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="12N-ib-D3Z">

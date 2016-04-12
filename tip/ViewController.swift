@@ -26,7 +26,10 @@ class ViewController: UIViewController {
         billAmountTextField.text = "$"
         splitByTextField.text = "1"
         splitAmountLabel.text = "$0.00"
-        tipControl.selectedSegmentIndex = 1
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let defaultTipPercentage = defaults.doubleForKey(Constants.defaultTipPercentageKey)
+        tipControl.selectedSegmentIndex = Constants.tipPercentages.indexOf(defaultTipPercentage) ?? 1
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
@@ -61,7 +64,7 @@ class ViewController: UIViewController {
     // MARK: util functions
     
     func calculateValues() {
-        let tipPercentages = [0.18, 0.2, 0.25]
+        let tipPercentages = Constants.tipPercentages
         
         validateBillAmountValueString()
         validateSplitByValueString()
