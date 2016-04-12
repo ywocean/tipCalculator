@@ -310,7 +310,7 @@
                         <barButtonItem key="rightBarButtonItem" image="setting" id="RHz-9x-l9B">
                             <color key="tintColor" red="0.48627450979999998" green="0.24313725489999999" blue="0.54117647059999996" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <segue destination="fy2-Ha-gHF" kind="show" id="WJF-W7-Sf2"/>
+                                <segue destination="fy2-Ha-gHF" kind="show" identifier="toSettings" id="WJF-W7-Sf2"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

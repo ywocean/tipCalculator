@@ -27,14 +27,18 @@ class ViewController: UIViewController {
         splitByTextField.text = "1"
         splitAmountLabel.text = "$0.00"
         
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let defaultTipPercentage = defaults.doubleForKey(Constants.defaultTipPercentageKey)
-        tipControl.selectedSegmentIndex = Constants.tipPercentages.indexOf(defaultTipPercentage) ?? 1
+        setDefaultTip()
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
     }
-
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        setDefaultTip()
+        calculateValues()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -62,6 +66,13 @@ class ViewController: UIViewController {
     }
     
     // MARK: util functions
+    
+    func setDefaultTip() {
+        print("asdsadadass")
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let defaultTipPercentage = defaults.doubleForKey(Constants.defaultTipPercentageKey)
+        tipControl.selectedSegmentIndex = Constants.tipPercentages.indexOf(defaultTipPercentage) ?? 1
+    }
     
     func calculateValues() {
         let tipPercentages = Constants.tipPercentages

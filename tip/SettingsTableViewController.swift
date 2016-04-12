@@ -92,7 +92,6 @@ class SettingsTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        print(section)
         switch section {
         case 0:
             return newLabelWithTitle("Please choose a default tip percentage")
