@@ -102,16 +102,13 @@ class ViewController: UIViewController {
                         let splitAmount = totalAmount / splitBy
                         splitAmountLabel.text = formatNumber(splitAmount)
                         
-                        let defaults = NSUserDefaults.standardUserDefaults()
-                        defaults.setValue(splitByTextField.text, forKeyPath: Constants.splitByValueKey)
-                        defaults.setValue(billAmountTextField.text, forKeyPath: Constants.billAmountKey)
-                        defaults.setObject(NSDate(), forKey: Constants.billAmountUpdatedAtKey)
-                        defaults.synchronize()
+                        saveNumbers()
                         return
                     }
                 }
                 
                 splitAmountLabel.text = formatNumber(0.0)
+                saveNumbers()
                 return
             }
         }
@@ -119,7 +116,16 @@ class ViewController: UIViewController {
         tipLabel.text = formatNumber(0.0)
         totalAmountLabel.text = formatNumber(0.0)
         splitAmountLabel.text = formatNumber(0.0)
+        saveNumbers()
         
+    }
+    
+    func saveNumbers() {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setValue(splitByTextField.text, forKeyPath: Constants.splitByValueKey)
+        defaults.setValue(billAmountTextField.text, forKeyPath: Constants.billAmountKey)
+        defaults.setObject(NSDate(), forKey: Constants.billAmountUpdatedAtKey)
+        defaults.synchronize()
     }
     
     func validateBillAmountValueString() {
@@ -195,12 +201,6 @@ class ViewController: UIViewController {
     
     func dismissKeyboard() {
         view.endEditing(true)
-        
-        if let billAmountValueString = billAmountTextField.text {
-            if billAmountValueString == "" {
-                billAmountTextField.text = "$";
-            }
-        }
         
         if let splitByValueString = splitByTextField.text {
             if splitByValueString == "" {
