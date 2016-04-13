@@ -42,6 +42,8 @@ class LocaleTableViewController: UITableViewController {
         
         self.tableView.registerClass(UITableViewCell.classForCoder(), forCellReuseIdentifier: "localeCell")
         self.tableView.dataSource = self
+        
+        self.navigationItem.title = "Countries"
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -90,7 +92,7 @@ class LocaleTableViewController: UITableViewController {
         selectedCountrycode = country.countryCode
         defaults.setValue(selectedCountrycode, forKey: Constants.countryCodeKey)
         defaults.synchronize()
-        self.tableView.reloadData()
+        navigationController?.popViewControllerAnimated(true)
     }
 
 

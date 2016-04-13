@@ -113,11 +113,19 @@ class SettingsTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        selectedTipIndex = indexPath.row
-        defaults.setDouble(Constants.tipPercentages[selectedTipIndex], forKey: Constants.defaultTipPercentageKey)
-        defaults.synchronize()
-        self.tableView.reloadData()
+        switch indexPath.section {
+        case 0:
+            let defaults = NSUserDefaults.standardUserDefaults()
+            selectedTipIndex = indexPath.row
+            defaults.setDouble(Constants.tipPercentages[selectedTipIndex], forKey: Constants.defaultTipPercentageKey)
+            defaults.synchronize()
+            self.tableView.reloadData()
+        case 1:
+            performSegueWithIdentifier("locale", sender: nil)
+        default:
+            print("\(indexPath.section) is invalid")
+        }
+        
     }
 
     /*

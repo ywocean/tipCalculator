@@ -350,6 +350,9 @@
                             <outlet property="delegate" destination="fy2-Ha-gHF" id="ude-M4-gWl"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="JNC-dj-beR" kind="show" identifier="locale" id="LDj-WQ-geN"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pRu-1B-dR7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -365,7 +368,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="ZLI-1l-L4L">
-                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZLI-1l-L4L" id="dnm-Uc-lhv">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
@@ -381,7 +384,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sFs-wB-74o" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1864" y="1049"/>
+            <point key="canvasLocation" x="2507" y="322"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="12N-ib-D3Z">
