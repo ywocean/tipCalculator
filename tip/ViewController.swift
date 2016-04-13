@@ -24,6 +24,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         currencyFormatter.numberStyle = .CurrencyStyle
+        currencyFormatter.groupingSeparator = ","
 
         tipLabel.text = formatNumber(0.00)
         totalAmountLabel.text = formatNumber(0.00)
