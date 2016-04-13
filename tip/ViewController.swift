@@ -14,8 +14,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var tipLabel: UILabel!
     @IBOutlet weak var totalAmountLabel: UILabel!
     @IBOutlet weak var splitByTextField: UITextField!
-    @IBOutlet weak var splitAmountLabel: UILabel!
     @IBOutlet weak var tipControl: UISegmentedControl!
+    @IBOutlet weak var splitAmountTextField: UITextField!
     
     private let currencyFormatter = NSNumberFormatter()
     
@@ -31,7 +31,7 @@ class ViewController: UIViewController {
         billAmountTextField.text = ""
         billAmountTextField.becomeFirstResponder()
         splitByTextField.text = "1"
-        splitAmountLabel.text = formatNumber(0.00)
+        splitAmountTextField.text = formatNumber(0.00)
         
         setDefaultValues()
         
@@ -101,14 +101,14 @@ class ViewController: UIViewController {
                 if let splitByValueString = splitByTextField.text {
                     if let splitBy = Double(splitByValueString) {
                         let splitAmount = totalAmount / splitBy
-                        splitAmountLabel.text = formatNumber(splitAmount)
+                        splitAmountTextField.text = formatNumber(splitAmount)
                         
                         saveNumbers()
                         return
                     }
                 }
                 
-                splitAmountLabel.text = formatNumber(0.0)
+                splitAmountTextField.text = formatNumber(0.0)
                 saveNumbers()
                 return
             }
@@ -116,7 +116,7 @@ class ViewController: UIViewController {
         
         tipLabel.text = formatNumber(0.0)
         totalAmountLabel.text = formatNumber(0.0)
-        splitAmountLabel.text = formatNumber(0.0)
+        splitAmountTextField.text = formatNumber(0.0)
         saveNumbers()
         
     }
