@@ -23,8 +23,7 @@ class LocaleTableViewController: UITableViewController {
         var locales = [Locale]()
         for localeCode in NSLocale.ISOCountryCodes() {
             let countryName = NSLocale.systemLocale().displayNameForKey(NSLocaleCountryCode, value: localeCode)!
-            let countryCode = localeCode as String
-            let locale = Locale(countryCode: countryCode, countryName: countryName)
+            let locale = Locale(countryCode: localeCode as String, countryName: countryName)
             locales.append(locale)
         }
         
@@ -44,6 +43,11 @@ class LocaleTableViewController: UITableViewController {
         self.tableView.dataSource = self
         
         self.navigationItem.title = "Countries"
+        
+        if let index = countries.indexOf({ $0.countryCode == selectedCountrycode}) {
+            let indexPath = NSIndexPath(forRow: index, inSection: 0)
+            tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Middle, animated: true)
+        }
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false

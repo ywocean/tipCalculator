@@ -11,7 +11,7 @@ import UIKit
 class SettingsTableViewController: UITableViewController {
     
     var selectedTipIndex = 1
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -20,7 +20,6 @@ class SettingsTableViewController: UITableViewController {
         let defaults = NSUserDefaults.standardUserDefaults()
         let defaultTipPercentage = defaults.doubleForKey(Constants.defaultTipPercentageKey)
         selectedTipIndex = Constants.tipPercentages.indexOf(defaultTipPercentage) ?? 1
-        
         self.tableView.registerClass(UITableViewCell.classForCoder(), forCellReuseIdentifier: "cell")
         
         self.tableView.dataSource = self
@@ -30,6 +29,11 @@ class SettingsTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -59,7 +63,6 @@ class SettingsTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
-        
         switch indexPath.section {
         case 0:
             switch indexPath.row {
@@ -80,7 +83,9 @@ class SettingsTableViewController: UITableViewController {
                 cell.accessoryType = .None
             }
         case 1:
-            cell.textLabel!.text = "Country"
+            let defaults = NSUserDefaults.standardUserDefaults()
+            let currentCountryCode = defaults.stringForKey(Constants.countryCodeKey) ?? NSLocale.currentLocale().objectForKey(NSLocaleCountryCode) as! String
+            cell.textLabel!.text = NSLocale.systemLocale().displayNameForKey(NSLocaleCountryCode, value: currentCountryCode)!
             cell.accessoryType = .DisclosureIndicator
         default:
             print("\(indexPath.section) is invalid")
