@@ -84,7 +84,7 @@ class SettingsTableViewController: UITableViewController {
             }
         case 1:
             let defaults = NSUserDefaults.standardUserDefaults()
-            let currentCountryCode = defaults.stringForKey(Constants.localeIdentifierKey) ?? NSLocale.currentLocale().objectForKey(NSLocaleCountryCode) as! String
+            let currentCountryCode = defaults.stringForKey(Constants.countryCodeKey) ?? NSLocale.currentLocale().objectForKey(NSLocaleCountryCode) as! String
             cell.textLabel!.text = NSLocale.systemLocale().displayNameForKey(NSLocaleCountryCode, value: currentCountryCode)!
             cell.accessoryType = .DisclosureIndicator
         default:
