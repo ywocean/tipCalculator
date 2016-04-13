@@ -109,9 +109,9 @@ class SettingsTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch section {
         case 0:
-            return newLabelWithTitle("Please choose your default tip percentage")
+            return newLabelWithTitle(" Please choose your default tip percentage")
         case 1:
-            return newLabelWithTitle("Please select your default country")
+            return newLabelWithTitle(" Please select your default country")
         default:
             return newLabelWithTitle("")
         }

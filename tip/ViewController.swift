@@ -17,16 +17,20 @@ class ViewController: UIViewController {
     @IBOutlet weak var splitAmountLabel: UILabel!
     @IBOutlet weak var tipControl: UISegmentedControl!
     
+    private let currencyFormatter = NSNumberFormatter()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        tipLabel.text = "$0.00"
-        totalAmountLabel.text = "$0.00"
-        billAmountTextField.text = "$"
+        currencyFormatter.numberStyle = .CurrencyStyle
+
+        tipLabel.text = formatNumber(0.00)
+        totalAmountLabel.text = formatNumber(0.00)
+        billAmountTextField.text = ""
         billAmountTextField.becomeFirstResponder()
         splitByTextField.text = "1"
-        splitAmountLabel.text = "$0.00"
+        splitAmountLabel.text = formatNumber(0.00)
         
         setDefaultValues()
         
@@ -46,12 +50,6 @@ class ViewController: UIViewController {
     }
     
     @IBAction func onBillAmountEditingDidBegin(sender: AnyObject) {
-        if let billAmountValueString = billAmountTextField.text {
-            if billAmountValueString == "$" {
-                billAmountTextField.text = "";
-            }
-        }
-        
         let endPosition = billAmountTextField.endOfDocument
         billAmountTextField.selectedTextRange = billAmountTextField.textRangeFromPosition(endPosition, toPosition: endPosition)
     }
@@ -96,13 +94,13 @@ class ViewController: UIViewController {
             if let billAmount = Double(billAmountValueString){
                 let tipAmount = billAmount * tipPercentages[tipControl.selectedSegmentIndex]
                 let totalAmount = tipAmount + billAmount;
-                tipLabel.text = String(format: "$%.2f", tipAmount)
-                totalAmountLabel.text = String(format: "$%.2f", totalAmount)
+                tipLabel.text = formatNumber(tipAmount)
+                totalAmountLabel.text = formatNumber(totalAmount)
                 
                 if let splitByValueString = splitByTextField.text {
                     if let splitBy = Double(splitByValueString) {
                         let splitAmount = totalAmount / splitBy
-                        splitAmountLabel.text = String(format: "$%.2f", splitAmount)
+                        splitAmountLabel.text = formatNumber(splitAmount)
                         
                         let defaults = NSUserDefaults.standardUserDefaults()
                         defaults.setValue(splitByTextField.text, forKeyPath: Constants.splitByValueKey)
@@ -113,14 +111,14 @@ class ViewController: UIViewController {
                     }
                 }
                 
-                splitAmountLabel.text = "$-.--"
+                splitAmountLabel.text = formatNumber(0.0)
                 return
             }
         }
         
-        tipLabel.text = "$0.00"
-        totalAmountLabel.text = "$0.00"
-        splitAmountLabel.text = "$0.00"
+        tipLabel.text = formatNumber(0.0)
+        totalAmountLabel.text = formatNumber(0.0)
+        splitAmountLabel.text = formatNumber(0.0)
         
     }
     
@@ -163,6 +161,32 @@ class ViewController: UIViewController {
             
             splitByTextField.text = splitByValueString
         }
+    }
+    
+    func formatNumber(number: Double) -> String? {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let currentCountryCode = defaults.stringForKey(Constants.countryCodeKey) ?? NSLocale.currentLocale().objectForKey(NSLocaleCountryCode) as! String
+        if let currentLocale = getLocaleBy(currentCountryCode) {
+            currencyFormatter.currencySymbol = currentLocale.objectForKey(NSLocaleCurrencySymbol) as! String
+            return currencyFormatter.stringFromNumber(number)
+        }
+        else {
+            return currencyFormatter.stringFromNumber(number)
+        }
+    }
+    
+    func getLocaleBy(currentCountryCode: String) -> NSLocale? {
+        let localeIdentifiers = NSLocale.availableLocaleIdentifiers()
+        for localeIndentifier in localeIdentifiers {
+            let locale = NSLocale(localeIdentifier: localeIndentifier)
+            if let countryCodeObject = locale.objectForKey(NSLocaleCountryCode) {
+                let countryCode = countryCodeObject as! String
+                if countryCode == currentCountryCode {
+                    return locale
+                }
+            }
+        }
+        return nil
     }
     
     func removeLastCharacter(str: String) -> String{
