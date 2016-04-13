@@ -13,17 +13,19 @@ class LocaleTableViewController: UITableViewController {
     struct Locale {
         let countryCode: String
         let countryName: String
+        let localeIdentifier: String
     }
     
     private var countries = [Locale]()
-    private var selectedCountrycode = NSLocale.currentLocale().objectForKey(NSLocaleCountryCode) as! String
+    private var selectedLocaleIdentifier = NSLocale.currentLocale().objectForKey(NSLocaleCountryCode) as! String
     
     private func locales() -> [Locale] {
         
         var locales = [Locale]()
         for localeCode in NSLocale.ISOCountryCodes() {
             let countryName = NSLocale.systemLocale().displayNameForKey(NSLocaleCountryCode, value: localeCode)!
-            let locale = Locale(countryCode: localeCode as String, countryName: countryName)
+            let localeIdentifier = NSLocale.systemLocale().localeIdentifier
+            let locale = Locale(countryCode: localeCode as String, countryName: countryName, localeIdentifier: localeIdentifier)
             locales.append(locale)
         }
         
@@ -37,14 +39,14 @@ class LocaleTableViewController: UITableViewController {
         countries = countriesTemp.sort({$0.countryName < $1.countryName})
         
         let defaults = NSUserDefaults.standardUserDefaults()
-        selectedCountrycode = defaults.stringForKey(Constants.countryCodeKey) ?? NSLocale.currentLocale().objectForKey(NSLocaleCountryCode) as! String
+        selectedLocaleIdentifier = defaults.stringForKey(Constants.localeIdentifierKey) ?? NSLocale.currentLocale().objectForKey(NSLocaleCountryCode) as! String
         
         self.tableView.registerClass(UITableViewCell.classForCoder(), forCellReuseIdentifier: "localeCell")
         self.tableView.dataSource = self
         
         self.navigationItem.title = "Countries"
         
-        if let index = countries.indexOf({ $0.countryCode == selectedCountrycode}) {
+        if let index = countries.indexOf({ $0.localeIdentifier == selectedLocaleIdentifier}) {
             let indexPath = NSIndexPath(forRow: index, inSection: 0)
             tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Middle, animated: true)
         }
@@ -79,7 +81,7 @@ class LocaleTableViewController: UITableViewController {
         
         let country = countries[indexPath.row]
         cell.textLabel!.text = country.countryName
-        if selectedCountrycode == country.countryCode {
+        if selectedLocaleIdentifier == country.localeIdentifier {
             cell.accessoryType = .Checkmark
         }
         else {
@@ -93,8 +95,8 @@ class LocaleTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let defaults = NSUserDefaults.standardUserDefaults()
         let country = countries[indexPath.row]
-        selectedCountrycode = country.countryCode
-        defaults.setValue(selectedCountrycode, forKey: Constants.countryCodeKey)
+        selectedLocaleIdentifier = country.countryCode
+        defaults.setValue(selectedLocaleIdentifier, forKey: Constants.localeIdentifierKey)
         defaults.synchronize()
         navigationController?.popViewControllerAnimated(true)
     }
