@@ -41,13 +41,15 @@ class SettingsTableViewController: UITableViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 2
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
             return Constants.tipPercentages.count
+        case 1:
+            return 1 // selected locale
         default:
             return 0
         }
@@ -58,22 +60,30 @@ class SettingsTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
         
-        switch indexPath.row {
+        switch indexPath.section {
         case 0:
-            cell.textLabel!.text = "18%"
+            switch indexPath.row {
+            case 0:
+                cell.textLabel!.text = "18%"
+            case 1:
+                cell.textLabel!.text = "20%"
+            case 2:
+                cell.textLabel!.text = "22%"
+            default:
+                cell.textLabel!.text = ""
+            }
+            
+            if indexPath.row == selectedTipIndex {
+                cell.accessoryType = .Checkmark
+            }
+            else {
+                cell.accessoryType = .None
+            }
         case 1:
-            cell.textLabel!.text = "20%"
-        case 2:
-            cell.textLabel!.text = "22%"
+            cell.textLabel!.text = "Country"
+            cell.accessoryType = .DisclosureIndicator
         default:
-            cell.textLabel!.text = ""
-        }
-        
-        if indexPath.row == selectedTipIndex {
-            cell.accessoryType = .Checkmark
-        }
-        else {
-            cell.accessoryType = .None
+            print("\(indexPath.section) is invalid")
         }
         
         return cell
@@ -94,7 +104,9 @@ class SettingsTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch section {
         case 0:
-            return newLabelWithTitle("Please choose a default tip percentage")
+            return newLabelWithTitle("Please choose your default tip percentage")
+        case 1:
+            return newLabelWithTitle("Please select your default country")
         default:
             return newLabelWithTitle("")
         }
