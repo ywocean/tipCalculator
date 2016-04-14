@@ -12,7 +12,8 @@ Completed:
 * [x] Optional: Remembering the bill amount across app restarts (if <10mins)
 * [x] Optional: Using locale-specific currency and currency thousands separators.
 * [x] Optional: Making sure the keyboard is always visible and the bill amount is always the first responder. This way the user doesn't have to tap anywhere to use this app. Just launch the app and start typing.
+* [x] Additional: Calculate the amount split by number of people.
 * [x] Additional: validation on bill amount input and split by value to make sure the inputs are valid numbers: 1) for bill amount, only at most one dot is allowed; No more then 2 digits of decimals are allowed; Integer part would not start with 0 2) for split by input, make sure it would not start with 0
-* * [x] Additional: Make sure the cursor will always show up at the right end of the textfield.
+* [x] Additional: Make sure the cursor will always show up at the right end of the textfield when focused.
 
-![Video Walkthrough](name of your gif file.gif)
+![Video Walkthrough](ios-tipcalculator.gif)
